@@ -56,26 +56,9 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
 
         setSupportActionBar(toolbar);
-//        toolbar.setNavigationIcon(R.mipmap.ic_launcher);
-//        toolbar.setLogo(R.drawable.ic_plain_white);
-//        View logoView = toolbar.getChildAt(1);
-//        logoView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(),"plane button",LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        toolbar.findViewById(R.id.logo_image).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(),"plane button",LENGTH_SHORT).show();
-//            }
-//        });
-
 
         tabLayout = (TabLayout) findViewById(R.id.vp_tab);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
 
         vp = (ViewPager)findViewById(R.id.vp);
         vp.requestFocus();

@@ -10,6 +10,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
@@ -19,6 +20,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -37,6 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SeekBar sb;
     AutoCompleteTextView ac;
     MultiAutoCompleteTextView mc;
+
+    TimePicker tp;
+    DatePicker dp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sb = (SeekBar) findViewById(R.id.seekBar);
         ac = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         mc = (MultiAutoCompleteTextView) findViewById(R.id.multiAutoCompleteTextView);
+        tp = (TimePicker) findViewById(R.id.timePicker);
+        dp = (DatePicker) findViewById(R.id.datePicker);
+
 
         tv.setOnClickListener(this);
         et.setOnClickListener(this);
@@ -64,9 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                switch(checkedId){
+                switch (checkedId) {
                     case R.id.radioButton1:
-                        Toast.makeText(getApplicationContext(),rb.getText().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), rb.getText().toString(), Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.radioButton2:
                         Toast.makeText(getApplicationContext(), String.valueOf(checkedId), Toast.LENGTH_SHORT).show();
@@ -111,8 +119,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
 
 
-
-
         cb.setOnCheckedChangeListener(checkListener);
         tb.setOnCheckedChangeListener(checkListener);
         sw.setOnCheckedChangeListener(checkListener);
@@ -128,11 +134,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-sb.setProgress(50);
+        sb.setProgress(50);
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-               tv.setText(String.valueOf(progress));
+                tv.setText(String.valueOf(progress));
             }
 
             @Override
@@ -146,16 +152,27 @@ sb.setProgress(50);
             }
         });
 
-        String[] items = { "SM3", "SM5", "SM7", "SONATA", "AVANTE", "SOUL", "K5",
-                "K7" };
-ac.setAdapter(new ArrayAdapter<String>(this,
-        android.R.layout.simple_dropdown_item_1line, items));
-
-mc.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-       mc.setAdapter(new ArrayAdapter<String>(this,
+        String[] items = {"SM3", "SM5", "SM7", "SONATA", "AVANTE", "SOUL", "K5",
+                "K7"};
+        ac.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, items));
 
+        mc.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        mc.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, items));
 
+        tp.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                tv.setText(hourOfDay+"시"+minute);
+            }
+        });
+        dp.init(2017, 7, 6, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                tv.setText(year+"년"+monthOfYear+"월"+dayOfMonth+"일");
+            }
+        });
     }
 
     @Override

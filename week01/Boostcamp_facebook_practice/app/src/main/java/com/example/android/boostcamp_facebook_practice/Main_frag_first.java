@@ -52,20 +52,21 @@ public class Main_frag_first extends android.support.v4.app.Fragment implements 
         img3.setOnClickListener(this);
         update.setOnClickListener(this);
 
+        //LayoutManager 설정, 이걸로 레이아웃 모드 변경가능
+        layoutManager = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
+        //MyAdapter 설정, 데이터 반영
+        firstAdapter = new MyAdapter(getActivity().getApplicationContext(),fb);
 
+        //RecyclerView view 설정
         firstRecyclerView = (RecyclerView)layout.findViewById(R.id.rv);
         firstRecyclerView.setHasFixedSize(true);
-
         firstRecyclerView.setNestedScrollingEnabled(false);
-        layoutManager = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
-        firstRecyclerView.setLayoutManager(layoutManager);
-        firstAdapter = new MyAdapter(getActivity().getApplicationContext(),fb);
-        firstRecyclerView.setAdapter(firstAdapter);
+        firstRecyclerView.setLayoutManager(layoutManager); // layoutMgr >> recyclerview
+        firstRecyclerView.setAdapter(firstAdapter); //adpater >> recyclerview
 
-
-       firstRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        firstRecyclerView.setScrollBarStyle(RecyclerView.SCROLLBARS_OUTSIDE_OVERLAY);
-        firstRecyclerView.setHorizontalScrollBarEnabled(false);
+//        firstRecyclerView.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+//        firstRecyclerView.setScrollBarStyle(RecyclerView.SCROLLBARS_INSIDE_INSET);
+//        firstRecyclerView.setHorizontalScrollBarEnabled(false);
         return layout;
     }
 
