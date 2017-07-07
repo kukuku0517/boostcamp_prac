@@ -3,6 +3,7 @@ package com.example.android.boostcamp_week01_practice;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -173,6 +174,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tv.setText(year+"년"+monthOfYear+"월"+dayOfMonth+"일");
             }
         });
+et.setLongClickable(true);
+et.setOnLongClickListener(new View.OnLongClickListener() {
+    @Override
+    public boolean onLongClick(View v) {
+        tv.setText("LongClick");
+        return false;
+    }
+});
+       et.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction()){
+                    case MotionEvent.ACTION_HOVER_ENTER:
+                        tv.setText("Hin");
+                        break;
+                    case MotionEvent.ACTION_HOVER_EXIT:
+                        tv.setText("Hex");
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        tv.setText(event.getX()+event.getY()+"");
+                        break;
+                    case MotionEvent.ACTION_SCROLL:
+                        tv.setText("Lscroll");
+                        break;
+
+
+
+                }
+                return true;
+            }
+        });
+
+
     }
 
     @Override
@@ -185,9 +219,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.editText:
                 Toast.makeText(this, et.getText().toString(), Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.button:
-                Toast.makeText(this, "button clicked", Toast.LENGTH_SHORT).show();
-                break;
+
 
 
             case R.id.spinner:
