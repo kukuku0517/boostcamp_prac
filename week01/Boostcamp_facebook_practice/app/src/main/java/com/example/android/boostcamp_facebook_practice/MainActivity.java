@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -31,18 +31,16 @@ public class MainActivity extends AppCompatActivity{
         return true;
     }
 
+    //menu내 message button event
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-          int id = item.getItemId();
-
-        if(R.id.message==id){
-            Toast.makeText(MainActivity.this,"message button",LENGTH_SHORT).show();
-
+        int id = item.getItemId();
+        if (R.id.message == id) {
+            Toast.makeText(MainActivity.this, "message button", LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
     ViewPager vp;
@@ -53,25 +51,32 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //toolbar 생성, logo_image(plane) event
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-
+        toolbar.findViewById(R.id.logo_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "plane button", LENGTH_SHORT).show();
+            }
+        });
         setSupportActionBar(toolbar);
 
+        //tablayout, viewPager layout, event구현
         tabLayout = (TabLayout) findViewById(R.id.vp_tab);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        vp = (ViewPager)findViewById(R.id.vp);
+        vp = (ViewPager) findViewById(R.id.vp);
         vp.requestFocus();
-       // /dd
-        vp.setAdapter(new TabPagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount()));
-     vp.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        vp.setAdapter(new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount()));
+        vp.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 vp.setCurrentItem(position);
-                switch(position){
+                switch (position) {
                     case 0:
                         tabLayout.getTabAt(position).setIcon(R.drawable.ic_3bar_blue);
                         break;
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity{
             public void onTabUnselected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
 
-                switch(position){
+                switch (position) {
                     case 0:
                         tabLayout.getTabAt(position).setIcon(R.drawable.ic_3bar_grey);
                         break;
@@ -110,37 +115,38 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-   }
+    }
 }
 
-    class TabPagerAdapter extends FragmentStatePagerAdapter {
+//TabPagerAdapter : 각 fragment와 연결
+class TabPagerAdapter extends FragmentStatePagerAdapter {
 
-        // Count number of tabs
-        private int tabCount;
+    // Count number of tabs
+    private int tabCount;
 
-        public TabPagerAdapter(FragmentManager fm, int tabCount) {
-                super(fm);
-                this.tabCount = tabCount;
-        }
+    public TabPagerAdapter(FragmentManager fm, int tabCount) {
+        super(fm);
+        this.tabCount = tabCount;
+    }
 
-        @Override
-        public Fragment getItem(int position) {
+    @Override
+    public Fragment getItem(int position) {
 
-                // Returning the current tabs
-                switch (position) {
-                    case 0:
-                        return  new Main_frag_first();
-                    case 1:
-                       return new Main_frag_second();
-                    case 2:
-                        return new Main_frag_third();
-                    default:
-                        return null;
-                    }
-                }
-
-        @Override
-        public int getCount() {
-            return tabCount;
+        // Returning the current tabs
+        switch (position) {
+            case 0:
+                return new Main_frag_first();
+            case 1:
+                return new Main_frag_second();
+            case 2:
+                return new Main_frag_third();
+            default:
+                return null;
         }
     }
+
+    @Override
+    public int getCount() {
+        return tabCount;
+    }
+}

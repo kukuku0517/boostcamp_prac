@@ -47,7 +47,6 @@
                     android:layout_gravity="center"
                     android:drawableLeft="@drawable/ic_search_white"
                     android:focusable="true"
-                    android:descendantFocusability="beforeDescendants"
                     android:focusableInTouchMode="true"
                     android:backgroundTint="#70FFFFFF"
                     android:textColor="@android:color/white"
