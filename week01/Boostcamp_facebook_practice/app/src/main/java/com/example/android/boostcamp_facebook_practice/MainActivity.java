@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
         tabLayout = (TabLayout) findViewById(R.id.vp_tab);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         vp = (ViewPager)findViewById(R.id.vp);
         vp.requestFocus();
